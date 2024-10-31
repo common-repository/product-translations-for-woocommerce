@@ -1,0 +1,90 @@
+<?php include 'header.phtml'; ?>
+
+<?php if (!$activated) { ?>
+<div class="connector-success-messages">
+    <div class="connector-success-messages-in">
+        <div class="sign">i</div>
+        <div class="message">
+            <b><?= __('Congratulations! The plugin has been installed!', 'product-translations-for-woocommerce') ?></b>
+            <p><?= __('Now please fill the form below to connect your store', 'product-translations-for-woocommerce') ?></p>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+<div class="content-in">
+    <div class="text-center">
+
+        <form method="post" class="form">
+            <?php wp_nonce_field( 'my_form_action', 'my_form_nonce' ); ?>
+            <h2 class="text-left"><?= __('Contact information', 'product-translations-for-woocommerce')?> </h2>
+            <div class="flex">
+                <div>
+                    <p><?= __('Web Name', 'product-translations-for-woocommerce') ?>:</p>
+                    <input size="50" type="text" name="webName" readonly value="<?php esc_html_e($webName); ?>"/>
+                </div>
+                <div>
+                    <p><?= __('Web URL', 'product-translations-for-woocommerce')?>:</p>
+                    <input size="50" type="text" name="webName" readonly value="<?php esc_html_e($webUrl); ?>"/>
+                </div>
+            </div>
+
+            <div class="flex">
+                <div>
+                    <p><?= __('Email', 'product-translations-for-woocommerce')?></p>
+                    <input size="50" required type="email" name="email" value="<?php esc_html_e($email); ?>"/>
+                </div>
+                <div>
+                    <p><?= __('Phone', 'product-translations-for-woocommerce')?>:</p>
+                    <input size="50" type="text" name="phone" value="<?php esc_html_e($phone); ?>"/>
+                </div>
+            </div>
+
+            <div class="text-right">
+                <label><input type="checkbox" value="1" name="agree" required> <?= __('I agree with the', 'product-translations-for-woocommerce') ?> <a href="https://loco.expan.do/en/terms-and-conditions" target="_blank"><?= __('terms and conditions', 'product-translations-for-woocommerce') ?></a></label>
+                <button id="bridgeConnectionInstall" name="action" value="connect" class="btn">Connect</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+
+<?php } else { ?>
+
+    <div class="content">
+        <div class="content-in">
+            <div class="text-center">
+
+                <p><b><?= __('Plugin installed and the page should be redirected to application for setup', 'product-translations-for-woocommerce') ?></b></p>
+                <p><b><?= __('You can also use')?> <a href="<?= $redirectUrl ?>"><?= __('manual redirect', 'product-translations-for-woocommerce') ?></a></b></p>
+                <br/>
+                <p><b><?= __('For repeatable errors, please try to reinstall application or contact our support.', 'product-translations-for-woocommerce')?></b></p>
+
+                <div class="buttons">
+                    <form method="post" class="bridge-form" id="uninstallForm">
+                        <?php wp_nonce_field( 'my_form_action', 'my_form_nonce' ); ?>
+                        <button name="action" value="uninstall" class="btn danger">Reinstall</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            var uninstallForm = document.getElementById('uninstallForm');
+            if (uninstallForm) {
+                uninstallForm.addEventListener('submit', function (event) {
+                    if (!confirm('Are you sure you want to reinstall the plugin and disconnect from Translation Application?')) {
+                        event.preventDefault();
+                    }
+                });
+            }
+        });
+    </script>
+
+<?php } ?>
+
+
+<?php include 'footer.phtml'; ?>

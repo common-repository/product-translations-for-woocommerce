@@ -1,0 +1,18 @@
+<h1><?= $pluginTitle ?></h1>
+
+<div class="bridge">
+
+    <?php foreach ($ptfw_errors as $error) { ?>
+        <div class="connector-error-messages">
+            <div class="connector-error-messages-in">
+                <div class="sign">i</div>
+                <div class="message">
+                    <?php echo $error; ?>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+
+
+    <div class="container">
+
